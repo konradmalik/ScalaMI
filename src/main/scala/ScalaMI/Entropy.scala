@@ -26,7 +26,8 @@ object Entropy {
 
     state.propMap.values.map(prob => -prob * Math.log(prob)).fold(0.0)(_ + _) / Math.log(LOG_BASE)
 
-  } //calculateEntropy(double [])
+  }
+
   /**
     * Calculates the conditional entropy H(X|Y) from two vectors.
     * X = dataVector, Y = conditionVector.
