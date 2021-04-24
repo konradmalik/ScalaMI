@@ -1,6 +1,4 @@
-This package is a rewrite of the JavaMI (https://github.com/Craigacp/JavaMI) from Java to Scala.
-All credits to Craigacp (JavaMI) and MIToolbox authors.
-New features might be added in the future, independently of JavaMI.
+# ScalaMI
 
 This is ScalaMI v1.0, an implementation of MIToolbox in Scala.
 
@@ -22,5 +20,10 @@ Functions contained:
 
 The Scala source files are licensed under the LGPL v3. 
 
-Update History
+## Update History
 07/06/2018 - v1.0 - Initial Release
+
+## Credits
+This package is a rewrite of the JavaMI (https://github.com/Craigacp/JavaMI) from Java to Scala.
+Credits to Craigacp (JavaMI) and MIToolbox authors.
+New features might be added in the future, independently of JavaMI.
