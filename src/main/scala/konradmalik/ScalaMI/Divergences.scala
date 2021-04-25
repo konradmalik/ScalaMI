@@ -1,4 +1,4 @@
-package ScalaMI
+package konradmalik.ScalaMI
 
 /** Based on https://github.com/sameersingh/scala-utils
   */

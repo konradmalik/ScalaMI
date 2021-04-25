@@ -25,34 +25,7 @@
   * *
   * *****************************************************************************
   */
-/** *****************************************************************************
-  * * ProbabilityState.java
-  * * Part of the Java Mutual Information toolbox
-  * *
-  * * Author: Adam Pocock
-  * * Created: 20/1/2012
-  * *
-  * *  Copyright 2012-2016 Adam Pocock, The University Of Manchester
-  * *  www.cs.manchester.ac.uk
-  * *
-  * *  This file is part of JavaMI.
-  * *
-  * *  JavaMI is free software: you can redistribute it and/or modify
-  * *  it under the terms of the GNU Lesser General Public License as published by
-  * *  the Free Software Foundation, either version 3 of the License, or
-  * *  (at your option) any later version.
-  * *
-  * *  JavaMI is distributed in the hope that it will be useful,
-  * *  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  * *  GNU Lesser General Public License for more details.
-  * *
-  * *  You should have received a copy of the GNU Lesser General Public License
-  * *  along with JavaMI.  If not, see <http://www.gnu.org/licenses/>.
-  * *
-  * *****************************************************************************
-  */
-package ScalaMI
+package konradmalik.ScalaMI
 
 /** Calculates the probabilities of each state in a random variable.
   * Provides the base for all functions of one variable. Additional functions
@@ -78,10 +51,12 @@ class ProbabilityState(val dataVector: Array[Double]) {
   private val countMap: Map[Int, Int] =
     normalisedVector.zipWithIndex
       .groupBy(_._1)
-      .mapValues(_.length)
-      .map(identity)
+      .view
+      .view
+      .map { case (k, v) => (k, v.length) }
+      .toMap
   val propMap: Map[Int, Double] =
-    countMap.mapValues(_ / doubleLength).map(identity)
+    countMap.view.map { case (k, v) => (k, v / doubleLength) }.toMap
 
 }
 

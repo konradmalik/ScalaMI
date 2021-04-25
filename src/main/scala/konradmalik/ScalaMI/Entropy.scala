@@ -1,4 +1,4 @@
-package ScalaMI
+package konradmalik.ScalaMI
 
 /** Implements common discrete Shannon Entropy functions.
   * Provides: univariate entropy H(X),

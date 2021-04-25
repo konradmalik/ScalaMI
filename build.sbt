@@ -1,18 +1,24 @@
 name := "scala-mutual-information"
 inThisBuild(
   List(
-    version := "0.0.1",
+    version := "0.0.2",
     organization := "konradmalik",
     scalaVersion := "2.12.13",
+    crossScalaVersions := Seq("2.11.12", "2.12.13", "2.13.5"),
     fork := true,
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision,
-    scalacOptions += "-Ywarn-unused-import", // required by `RemoveUnused` rule
     scalafixScalaBinaryVersion := scalaBinaryVersion.value,
     scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0",
   )
 )
 
+scalacOptions += {
+    CrossVersion.partialVersion(scalaBinaryVersion.value) match {
+        case Some((2, n)) if n <= 12 => "-Ywarn-unused-import"
+        case _ => "-Ywarn-unused:imports"
+    }
+}
 githubOwner := "konradmalik"
 githubRepository := "ScalaMI"
 
