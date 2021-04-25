@@ -23,7 +23,9 @@
   * *  You should have received a copy of the GNU Lesser General Public License
   * *  along with JavaMI.  If not, see <http://www.gnu.org/licenses/>.
   * *
-  * ******************************************************************************//*******************************************************************************
+  * *****************************************************************************
+  */
+/** *****************************************************************************
   * * ProbabilityState.java
   * * Part of the Java Mutual Information toolbox
   * *
@@ -48,12 +50,11 @@
   * *  You should have received a copy of the GNU Lesser General Public License
   * *  along with JavaMI.  If not, see <http://www.gnu.org/licenses/>.
   * *
-  * ******************************************************************************/
+  * *****************************************************************************
+  */
 package ScalaMI
 
-
-/**
-  * Calculates the probabilities of each state in a random variable.
+/** Calculates the probabilities of each state in a random variable.
   * Provides the base for all functions of one variable. Additional functions
   * include the normaliseArrays function which converts all inputs so they start
   * at 0, and the mergeArrays function which creates an array of the joint state of
@@ -63,26 +64,30 @@ package ScalaMI
   */
 class ProbabilityState(val dataVector: Array[Double]) {
 
-  /**
-    * Constructor for the ProbabilityState class. Takes a data vector and calculates
+  /** Constructor for the ProbabilityState class. Takes a data vector and calculates
     * the marginal probability of each state, storing each state/probability pair in a HashMap.
     *
     * dataVector Input vector. It is discretised to the floor of each value.
     */
   private val doubleLength: Double = dataVector.length.toDouble
   //round input to integers
-  private val norm: (Array[Int], Int) = ProbabilityState.normaliseArray(dataVector)
+  private val norm: (Array[Int], Int) =
+    ProbabilityState.normaliseArray(dataVector)
   private val normalisedVector: Array[Int] = norm._1
   val maxState: Int = norm._2
   private val countMap: Map[Int, Int] =
-    normalisedVector.zipWithIndex.groupBy(_._1).mapValues(_.length).map(identity)
-  val propMap: Map[Int, Double] = countMap.mapValues(_ / doubleLength).map(identity)
+    normalisedVector.zipWithIndex
+      .groupBy(_._1)
+      .mapValues(_.length)
+      .map(identity)
+  val propMap: Map[Int, Double] =
+    countMap.mapValues(_ / doubleLength).map(identity)
 
 }
 
 object ProbabilityState {
-  /**
-    * Takes an input vector and writes an output vector
+
+  /** Takes an input vector and writes an output vector
     * which is a normalised version of the input, and returns the maximum state.
     * A normalised array has min value = 0, max value = old max value - min value
     * and all values are integers
@@ -102,8 +107,7 @@ object ProbabilityState {
     // normalise
     (inputVectorInt.map(v => v - minInt), maxInt + 1)
   } //normaliseArray(double[],double[])
-  /**
-    * Takes in two arrays and writes the joint state of those arrays
+  /** Takes in two arrays and writes the joint state of those arrays
     * to the output vector, returning the output vector
     *
     * The length of all vectors must be equal to firstVector.length
@@ -113,20 +117,24 @@ object ProbabilityState {
     * @param secondVector The second vector.
     * @return the output vector
     */
-  def mergeArrays(firstVector: Array[Double], secondVector: Array[Double]): (Array[Int], Int) = {
+  def mergeArrays(
+      firstVector: Array[Double],
+      secondVector: Array[Double]
+  ): (Array[Int], Int) = {
     assert(firstVector.length == secondVector.length)
     val (firstNormalisedVector: Array[Int], _) = normaliseArray(firstVector)
     val (secondNormalisedVector: Array[Int], _) = normaliseArray(secondVector)
 
-    val joinedVectors: Array[(Int, Int)] = firstNormalisedVector.zip(secondNormalisedVector)
+    val joinedVectors: Array[(Int, Int)] =
+      firstNormalisedVector.zip(secondNormalisedVector)
 
-    val joinedStatesMap: Map[(Int, Int), Int] = joinedVectors.distinct.zipWithIndex.map(a => (a._1, a._2 + 1)).toMap
+    val joinedStatesMap: Map[(Int, Int), Int] =
+      joinedVectors.distinct.zipWithIndex.map(a => (a._1, a._2 + 1)).toMap
 
     (joinedVectors.map(joinedStatesMap), joinedStatesMap.values.max + 1)
   }
 
-  /**
-    * A helper function which prints out any given double vector.
+  /** A helper function which prints out any given double vector.
     * Mainly used to help debug the rest of the toolbox.
     *
     * @param vector The vector to print out.

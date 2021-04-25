@@ -23,7 +23,9 @@
   * *  You should have received a copy of the GNU Lesser General Public License
   * *  along with JavaMI.  If not, see <http://www.gnu.org/licenses/>.
   * *
-  * ******************************************************************************//*******************************************************************************
+  * *****************************************************************************
+  */
+/** *****************************************************************************
   * * JointProbabilityState.java
   * * Part of the Java Mutual Information toolbox
   * *
@@ -48,20 +50,21 @@
   * *  You should have received a copy of the GNU Lesser General Public License
   * *  along with JavaMI.  If not, see <http://www.gnu.org/licenses/>.
   * *
-  * ******************************************************************************/
+  * *****************************************************************************
+  */
 package ScalaMI
 
-
-/**
-  * Calculates the probabilities of each state in a joint random variable.
+/** Calculates the probabilities of each state in a joint random variable.
   * Provides the base for all functions of two variables.
   *
   * @author apocock
   */
-class JointProbabilityState(val firstVector: Array[Double], val secondVector: Array[Double]) {
+class JointProbabilityState(
+    val firstVector: Array[Double],
+    val secondVector: Array[Double]
+) {
 
-  /**
-    * Constructor for the JointProbabilityState class. Takes two data vectors and calculates
+  /** Constructor for the JointProbabilityState class. Takes two data vectors and calculates
     * the joint and marginal probabilities, before storing them in HashMaps.
     *
     * firstVector  Input vector. It is discretised to the floor of each value.
@@ -71,22 +74,38 @@ class JointProbabilityState(val firstVector: Array[Double], val secondVector: Ar
   private val doubleLength: Double = firstVector.length.toDouble
   assert(doubleLength == secondVector.length.toDouble)
 
-  private val normFirst: (Array[Int], Int) = ProbabilityState.normaliseArray(firstVector)
-  private val normSecond: (Array[Int], Int) = ProbabilityState.normaliseArray(secondVector)
+  private val normFirst: (Array[Int], Int) =
+    ProbabilityState.normaliseArray(firstVector)
+  private val normSecond: (Array[Int], Int) =
+    ProbabilityState.normaliseArray(secondVector)
   private val firstNormalisedVector: Array[Int] = normFirst._1
   private val secondNormalisedVector: Array[Int] = normSecond._1
   val firstMaxVal: Int = normFirst._2
   val secondMaxVal: Int = normSecond._2
 
   private val jointCountMap: Map[(Int, Int), Int] =
-    firstNormalisedVector.zip(secondNormalisedVector).zipWithIndex.groupBy(_._1).mapValues(_.length).map(identity)
-  val jointPropMap: Map[(Int, Int), Double] = jointCountMap.mapValues(_ / doubleLength).map(identity)
+    firstNormalisedVector
+      .zip(secondNormalisedVector)
+      .zipWithIndex
+      .groupBy(_._1)
+      .mapValues(_.length)
+      .map(identity)
+  val jointPropMap: Map[(Int, Int), Double] =
+    jointCountMap.mapValues(_ / doubleLength).map(identity)
 
   private val firstCountMap: Map[Int, Int] =
-    firstNormalisedVector.zipWithIndex.groupBy(_._1).mapValues(_.length).map(identity)
-  val firstProbMap: Map[Int, Double] = firstCountMap.mapValues(_ / doubleLength).map(identity)
+    firstNormalisedVector.zipWithIndex
+      .groupBy(_._1)
+      .mapValues(_.length)
+      .map(identity)
+  val firstProbMap: Map[Int, Double] =
+    firstCountMap.mapValues(_ / doubleLength).map(identity)
 
   private val secondCountMap: Map[Int, Int] =
-    secondNormalisedVector.zipWithIndex.groupBy(_._1).mapValues(_.length).map(identity)
-  val secondProbMap: Map[Int, Double] = secondCountMap.mapValues(_ / doubleLength).map(identity)
+    secondNormalisedVector.zipWithIndex
+      .groupBy(_._1)
+      .mapValues(_.length)
+      .map(identity)
+  val secondProbMap: Map[Int, Double] =
+    secondCountMap.mapValues(_ / doubleLength).map(identity)
 }

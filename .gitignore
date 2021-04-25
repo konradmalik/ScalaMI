@@ -1,11 +1,18 @@
 # build files
-/target/
+**/target
 *.class
 
-# editor backups
+# editor
 *~
 .*.swp
 .idea
 *.iml
+.vscode
+.bsp
+**/metals.sbt
+.bloop
+.metals
 
+# misc
 .directory
+.envrc

@@ -1,7 +1,6 @@
 package ScalaMI
 
-/**
-  * Based on https://github.com/sameersingh/scala-utils
+/** Based on https://github.com/sameersingh/scala-utils
   */
 
 import java.lang.StrictMath.log
