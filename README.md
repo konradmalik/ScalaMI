@@ -19,6 +19,11 @@ Functions contained:
 - generating a joint variable
 - generating a probability distribution from a discrete random variable
 
+## TODO
+
+- Tests
+- Actions
+
 ## Credits
 
 This package is a rewrite of the JavaMI (https://github.com/Craigacp/JavaMI) from Java to Scala.
