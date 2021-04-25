@@ -45,6 +45,9 @@ libraryDependencies += "konradmalik" %% "scala-mutual-information" % "0.0.2"
   when you execute anything related to `sbt`. If your PAT is invalid, then any attempt on package installation will fail with
   status 400 or 401. Managing this env variable is a separate issue, but I recommend [direnv](https://github.com/direnv/direnv)
 
+Another installation method is to just download the jar file from packages (you do not need to be authenticated) and manually
+include it as a dependency in your project.
+
 Exemplary usage:
 
 ```scala
